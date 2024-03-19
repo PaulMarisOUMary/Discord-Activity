@@ -7,11 +7,11 @@ DISCORD_CLIENT_SECRET=xxxxxxxxxx
 ```
 
 1. Start Client
-`cd client; npm run dev`
+`cd client; npm i; npm run dev`
 
 2. Create Tunnel
 `cloudflared tunnel --url http://localhost:5173`
 Update the Mapping URL with your Tunnel URL
 
 3. Start Server
-`cd server; npm run dev`
+`cd server; npm i; npm run dev`

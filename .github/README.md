@@ -1,6 +1,6 @@
 # Discord Activity
 
-[!NOTE]
+> [!NOTE]
 > Docker is **not mandatory** to run the project, and is provided as an optional convenience, offering a simpler and quicker way to run the project. Otherwise, refer to the [alternative setup section](#Alternative-Setup).
 
 ## Setup

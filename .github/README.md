@@ -15,8 +15,8 @@
     ```
     This command builds and starts the containers defined in the Docker Compose configuration file.
 
-    > [!NOTE]
-    > Use `docker compose down` to remove the Docker containers and networks created.
+> [!NOTE]  
+> Use `docker compose down` to remove the Docker containers and networks created.
 
 3. **Create Tunnel**: Use `cloudflared` to create a tunnel for local development. Run the following command:
     ```bash

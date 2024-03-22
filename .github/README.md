@@ -51,22 +51,22 @@ If you prefer not to use Docker, you can set up the project manually following t
     ```
 
 2. **Run the Server**: Make sure you are inside the `./server` directory.
-```bash
-npm run dev
-```
+    ```bash
+    npm run dev
+    ```
 
 3. **Run the Server**: Make sure you are inside the `./client` directory.
-```bash
-npm run dev
-```
-Or using Discord SDK
-```bash
-npm run dev:sdk
-```
+    ```bash
+    npm run dev
+    ```
+    Or using Discord SDK
+    ```bash
+    npm run dev:sdk
+    ```
 
 4. **Create Tunnel**: Use `cloudflared` to create a tunnel for local development. Run the following command:
     ```bash
-    cloudflared tunnel --url http://localhost:8080
+    cloudflared tunnel --url http://localhost:5173
     ```
     Save the access URL for the next step.
 

@@ -1,0 +1,22 @@
+services:
+    client:
+        build: 
+            context: .
+            dockerfile: Dockerfile.client
+        container_name: client
+        ports:
+            - 8080:8080
+        depends_on: [server]
+
+    server:
+        build: 
+            context: .
+            dockerfile: Dockerfile.server
+        restart: always
+        container_name: server
+        hostname: server
+        environment:
+            NODE_ENV: production
+        expose:
+            - 3001
+

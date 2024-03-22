@@ -1,0 +1,43 @@
+# syntax=docker/dockerfile:1
+
+
+
+ARG NODE_VERSION=21-bullseye
+ARG NGINX_VERSION=bullseye
+
+
+ARG PROJECT_PATH="./client/"
+
+FROM node:${NODE_VERSION} as base
+
+ARG PROJECT_PATH
+
+WORKDIR /usr/src/app/client
+
+
+
+FROM base as build
+
+COPY ${PROJECT_PATH} .
+COPY .env ../
+
+RUN --mount=type=bind,source=${PROJECT_PATH}package.json,target=package.json \
+    --mount=type=bind,source=${PROJECT_PATH}package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci
+
+RUN npm run build
+
+
+
+FROM nginx:${NGINX_VERSION}
+
+ARG PROJECT_PATH
+
+COPY ${PROJECT_PATH}nginx/nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=build /usr/src/app/client/dist /usr/share/nginx/html
+
+EXPOSE 8080
+
+CMD ["nginx", "-g", "daemon off;"]

@@ -2,6 +2,7 @@ import { useRef } from 'react';
 
 import DiscordService from './lib/discord/service';
 import { appendVoiceChannelName, appendGuildAvatar } from './lib/discord/example';
+import { isProduction } from './lib/helper/helper';
 
 import rocketLogo from '@/assets/img/rocket.png'
 
@@ -11,7 +12,8 @@ function App() {
   const appRef = useRef<HTMLDivElement>(null);
 
   // Enable previewing the application in development mode without the need to test it within a Discord voice channel.
-  if (process.env.NODE_ENV === "production") {
+  if (isProduction()) {
+    console.log("Using Discord SDK")
     const discord = new DiscordService()
     discord.setupSDK().then(async () => {
       console.log("Discord SDK is authenticated");
@@ -19,6 +21,8 @@ function App() {
       await appendVoiceChannelName(discord, appRef);
       await appendGuildAvatar(discord, appRef);
     });
+  } else {
+    console.log("Not using SDK")
   }
 
   return (

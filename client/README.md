@@ -4,11 +4,23 @@
 
 ### Development Mode
 
+#### Without Discord SDK
+
+**Use case**: You're developing or debugging on <ins>localhost:8080</ins> or <ins>localhost:5173</ins>.
+
+**Command**: `npm run dev`
+
 During development, **by default**, executing `npm run dev` excludes all functionalities related to the Discord SDK to ensure the seamless rendering of the application.
 
 This exclusion is useful when you're developing locally and need to tweak things and aspects of the application that aren't connected to the Discord SDK.
 
-To develop the application while using the Discord SDK, you need to execute `npm run dev:sdk`.
+#### Using Discord SDK
+
+**Use case**: You are developing or debugging inside a Discord <ins>voice channel</ins>.
+
+**Command**: `npm run dev:sdk`
+
+To develop the application while using the Discord SDK (and so debugging inside a voice channel), you need to execute `npm run dev:sdk`.
 
 > [!WARNING]
 > Running this command set the `NODE_ENV` to `production`.
@@ -16,7 +28,7 @@ To develop the application while using the Discord SDK, you need to execute `npm
 
 ### Components with SHADCN UI
 
-I am using [ui.shadcn](https://ui.shadcn.com/docs).
+Component library used: [ui.shadcn](https://ui.shadcn.com/docs).
 
 To add a new ui.shadcn component in the project, execute the following command:
 ```bash

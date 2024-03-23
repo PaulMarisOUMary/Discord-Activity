@@ -1,50 +1,48 @@
-import { DiscordSDK } from "@discord/embedded-app-sdk";
-import { DiscordAuthResponse } from "./types";
+import { DiscordSDK, DiscordSDKMock } from "@discord/embedded-app-sdk";
+import { isEmbedded } from "../helper/helper";
+import { getOverrideOrRandomSessionValue } from "./mock";
 
 class DiscordService {
-    sdk: DiscordSDK;
-    auth?: DiscordAuthResponse;
+    sdk: DiscordSDK | DiscordSDKMock;
 
     constructor() {
-        this.sdk = new DiscordSDK(import.meta.env.VITE_DISCORD_CLIENT_ID);
-    }
+        if (isEmbedded()) {
+            this.sdk = new DiscordSDK(import.meta.env.VITE_DISCORD_CLIENT_ID);
+        } else {
+            const mockUserId = getOverrideOrRandomSessionValue('user_id');
+            const mockGuildId = getOverrideOrRandomSessionValue('guild_id');
+            const mockChannelId = getOverrideOrRandomSessionValue('channel_id');
 
-    async setupSDK() {
-        await this.sdk?.ready();
+            this.sdk = new DiscordSDKMock(
+                import.meta.env.VITE_DISCORD_CLIENT_ID,
+                mockGuildId,
+                mockChannelId
+            )
 
-        console.log("Discord SDK is ready");
-    
-        // Authorize with Discord Client
-        const { code } = await this.sdk.commands.authorize({
-            client_id: import.meta.env.VITE_DISCORD_CLIENT_ID,
-            response_type: "code",
-            state: "",
-            prompt: "none",
-            scope: [
-                "identify",
-                "guilds",
-            ],
-        });
-    
-        // Retrieve an access_token from your activity's server
-        const response = await fetch("/api/token", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                code,
-            }),
-        });
-        const { access_token } = await response.json();
-    
-        // Authenticate with Discord client (using the access_token)
-        this.auth = await this.sdk.commands.authenticate({
-            access_token,
-        });
-    
-        if (this.auth == null) {
-            throw new Error("Authenticate command failed");
+            const discriminator = String(mockUserId.charCodeAt(0) % 5);
+
+            this.sdk._updateCommandMocks({
+                authenticate: async () => {
+                    return await {
+                        access_token: 'mock_token',
+                        user: {
+                            username: mockUserId,
+                            discriminator,
+                            id: mockUserId,
+                            avatar: null,
+                            public_flags: 1,
+                        },
+                        scopes: [],
+                        expires: new Date(2112, 1, 1).toString(),
+                        application: {
+                            description: 'mock_app_description',
+                            icon: 'mock_app_icon',
+                            id: 'mock_app_id',
+                            name: 'mock_app_name',
+                        },
+                    };
+                },
+            });
         }
     }
 }

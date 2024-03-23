@@ -81,10 +81,6 @@ If Docker isn't your preferred choice, you can set up the project manually follo
     ```bash
     npm run dev
     ```
-    Or, using Discord SDK
-    ```bash
-    npm run dev:sdk
-    ```
     Additional details can be found in the [client/README.md](/client/README.md).
 
 5. **Create Tunnel**: Use `cloudflared` to create a tunnel for local development. Run the following command:

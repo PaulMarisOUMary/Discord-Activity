@@ -2,31 +2,17 @@
 
 ## Development
 
-### Development Mode
-
-#### Without Discord SDK
+**Command**: `npm run dev`
 
 **Use case**: You're developing or debugging on <ins>localhost:8080</ins> or <ins>localhost:5173</ins>.
 
-**Command**: `npm run dev`
-
-During development, **by default**, executing `npm run dev` excludes all functionalities related to the Discord SDK to ensure the seamless rendering of the application.
-
-This exclusion is useful when you're developing locally and need to tweak things and aspects of the application that aren't connected to the Discord SDK.
-
-#### Using Discord SDK
+- Develop the application in your browser with mocked data inside the Discord SDK.
 
 **Use case**: You are developing or debugging inside a Discord <ins>voice channel</ins>.
 
-**Command**: `npm run dev:sdk`
+- Test and develop directly within a Discord voice channel.
 
-To develop the application while using the Discord SDK (and so debugging inside a voice channel), you need to execute `npm run dev:sdk`.
-
-> [!WARNING]
-> Running this command set the `NODE_ENV` to `production`.
-> See [Vite documentation](https://vitejs.dev/guide/env-and-mode).
-
-### Components with SHADCN UI
+## Components with SHADCN UI
 
 Component library used: [ui.shadcn](https://ui.shadcn.com/docs).
 

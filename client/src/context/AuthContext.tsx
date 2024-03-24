@@ -1,11 +1,16 @@
 import { ReactNode, createContext, useContext, useEffect, useRef, useState } from 'react';
 
 import discord from '@/lib/discord/service';
-import { DiscordAuthResponse } from '@/lib/discord/types/responses';
+import { TAuthenticateResponse } from '@/lib/discord/types/responses';
 
 import LoadingComp from '@/components/loading/loading';
+import { IMember } from '@/lib/discord/types/member';
+import { Types } from '@discord/embedded-app-sdk';
 
-const AuthContext = createContext<DiscordAuthResponse>({
+
+export type TAuthenticatedContext = TAuthenticateResponse & { user: Partial<Types.User>} & { member: IMember | null};
+
+const AuthContext = createContext<TAuthenticatedContext>({
     user: {
         id: '',
         username: '',
@@ -23,6 +28,7 @@ const AuthContext = createContext<DiscordAuthResponse>({
         icon: null,
         description: '',
     },
+    member : null
 });
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
@@ -50,8 +56,9 @@ function useAuthContextSetup() {
             const code = await discord.authorize();
             const newAuth = await discord.authenticate(code);
 
+            const member = await discord.getMember(newAuth.access_token);
 
-            setAuth({ ...newAuth });
+            setAuth({ ...newAuth, member: member });
         };
 
         if (!settingUp.current) {

@@ -6,9 +6,9 @@ import './App.scss'
 
 function App() {
 
-  const auth = useAuthContext();
+  const ctx = useAuthContext();
 
-  const username = auth ? auth.user.username : 'anon';
+  const username = ctx ? ctx.user.username : 'anon';
 
   return (
     <div

@@ -1,7 +1,8 @@
 import { DiscordSDK, DiscordSDKMock } from "@discord/embedded-app-sdk";
 import { isEmbedded } from "../helper/helper";
 import { getOverrideOrRandomSessionValue } from "./mock";
-import { DiscordAuthResponse } from "./types/responses";
+import { TAuthenticateResponse } from "./types/responses";
+import { IMember } from "./types/member";
 
 class DiscordService {
     sdk: DiscordSDK | DiscordSDKMock;
@@ -90,13 +91,28 @@ class DiscordService {
             }),
         });
 
-        const { access_token }: { access_token: string} = await response.json();
+        const { access_token }: { access_token: string } = await response.json();
 
-        const auth: DiscordAuthResponse = await this.sdk.commands.authenticate({
+        const auth: TAuthenticateResponse = await this.sdk.commands.authenticate({
             access_token,
         });
 
         return auth;
+    }
+
+    async getMember(access_token: string) {
+        const response = await fetch(`https://discord.com/api/users/@me/guilds/${this.sdk.guildId}/member`, {
+                method: 'get',
+                headers: { 
+                    Authorization: `Bearer ${access_token}` 
+                },
+            }
+        )
+
+        const member: IMember = await response.json()
+
+        return member ? member : null
+
     }
 }
 

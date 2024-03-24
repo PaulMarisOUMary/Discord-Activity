@@ -1,3 +1,5 @@
+@import "./style/colors.scss";
+
 .container {
   display: flex;
   flex-direction: column;
@@ -6,19 +8,17 @@
   height: 100vh;
   width: 100%;
 
-  color: #646cff;
+  color: $burple;
 }
 
 .logo {
-  height: auto;
-  max-width: 100%;
-  width: 400px;
+  height: calc(8vw + 6em);
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em rgba($burple, .75));
 }
 .logo.vanilla:hover {
   filter: drop-shadow(0 0 2em #f7df1eaa);

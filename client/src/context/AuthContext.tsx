@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useContext, useEffect, useRef, useState } from 'react';
 
-import DiscordService from '@/lib/discord/service';
-import { DiscordAuthResponse } from '@/lib/discord/types';
+import discord from '@/lib/discord/service';
+import { DiscordAuthResponse } from '@/lib/discord/types/responses';
 
 import LoadingComp from '@/components/loading/loading';
 
@@ -45,7 +45,6 @@ function useAuthContextSetup() {
 
     useEffect(() => {
         const setUpDiscordSdk = async () => {
-            const discord = new DiscordService();
             const sdk = discord.sdk;
             await sdk.ready();
 

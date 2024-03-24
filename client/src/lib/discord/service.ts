@@ -46,4 +46,7 @@ class DiscordService {
         }
     }
 }
-export default DiscordService;
+
+const discord = new DiscordService();
+
+export default discord;

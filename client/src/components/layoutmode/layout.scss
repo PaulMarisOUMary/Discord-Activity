@@ -1,0 +1,30 @@
+@import "../../style/colors.scss";
+
+.layout-container {
+    width: 100%;
+    height: 100%;
+}
+
+.layout-mode {
+    outline-offset: -2px;
+}
+
+.FOCUSED {
+    @extend .layout-mode;
+    outline: 2px solid $burple;
+}
+
+.PIP {
+    @extend .layout-mode;
+    outline: 2px solid white;
+}
+
+.GRID {
+    @extend .layout-mode;
+    outline: 2px solid steelblue;
+}
+
+.UNHANDLED {
+    @extend .layout-mode;
+    outline: 2px solid crimson;
+}

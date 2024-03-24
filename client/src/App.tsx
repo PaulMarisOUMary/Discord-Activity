@@ -2,7 +2,7 @@ import rocketLogo from '@/assets/img/rocket.png'
 
 import { useAuthContext } from './context/AuthContext';
 
-import './App.css'
+import './App.scss'
 
 function App() {
 

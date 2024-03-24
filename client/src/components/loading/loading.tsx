@@ -1,5 +1,15 @@
-import '@/components/loading/loading.css';
+import { CSSProperties } from 'react';
 
-export function LoadingScreen() {
-    return <div className="loading__container">LOADING</div>;
+import '@/components/loading/loading.scss';
+
+export default function LoadingComp({ style }: {style?: CSSProperties}) {
+    return (
+        <div className="loading-container" style={style}>
+            <h1 className="loading-text">Loading
+                <span className="loading-dot">.</span>
+                <span className="loading-dot">.</span>
+                <span className="loading-dot">.</span>
+            </h1>
+        </div>
+    );
 }

@@ -3,7 +3,7 @@ import { ReactNode, createContext, useContext, useEffect, useRef, useState } fro
 import DiscordService from '@/lib/discord/service';
 import { DiscordAuthResponse } from '@/lib/discord/types';
 
-import { LoadingScreen } from '@/components/loading/loading';
+import LoadingComp from '@/components/loading/loading';
 
 const AuthContext = createContext<DiscordAuthResponse>({
     user: {
@@ -29,7 +29,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     const authenticatedContext = useAuthContextSetup();
 
     if (authenticatedContext == null) {
-        return <LoadingScreen />;
+        return <LoadingComp />;
     }
 
     return <AuthContext.Provider value={authenticatedContext}>{children}</AuthContext.Provider>;

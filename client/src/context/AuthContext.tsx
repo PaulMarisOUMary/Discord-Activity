@@ -45,52 +45,11 @@ function useAuthContextSetup() {
 
     useEffect(() => {
         const setUpDiscordSdk = async () => {
-            const sdk = discord.sdk;
-            await sdk.ready();
+            await discord.sdk.ready();
 
-            const { code } = await sdk.commands.authorize({
-                client_id: import.meta.env.VITE_DISCORD_CLIENT_ID,
-                response_type: 'code',
-                state: '',
-                prompt: 'none',
-                // More info on scopes here: https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes
-                scope: [
-                    // "applications.builds.upload",
-                    // "applications.builds.read",
-                    // "applications.store.update",
-                    // "applications.entitlements",
-                    // "bot",
-                    'identify',
-                    // "connections",
-                    // "email",
-                    // "gdm.join",
-                    'guilds',
-                    // "guilds.join",
-                    'guilds.members.read',
-                    // "messages.read",
-                    // "relationships.read",
-                    // 'rpc.activities.write',
-                    // "rpc.notifications.read",
-                    // "rpc.voice.write",
-                    'rpc.voice.read',
-                    // "webhook.incoming",
-                ],
-            });
+            const code = await discord.authorize();
+            const newAuth = await discord.authenticate(code);
 
-            const response = await fetch('/api/token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    code,
-                }),
-            });
-            const { access_token } = await response.json();
-
-            const newAuth: DiscordAuthResponse = await sdk.commands.authenticate({
-                access_token,
-            });
 
             setAuth({ ...newAuth });
         };

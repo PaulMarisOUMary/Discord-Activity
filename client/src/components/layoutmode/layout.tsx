@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import discord from '@/lib/discord/service';
 import { Common, EventPayloadData } from '@discord/embedded-app-sdk';
 

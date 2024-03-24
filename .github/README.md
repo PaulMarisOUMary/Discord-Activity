@@ -73,12 +73,15 @@ If Docker isn't your preferred choice, you can set up the project manually follo
 
 3. **Run the Server**: Make sure you are inside the `./server` directory.
     ```bash
+    npm install
+    npm run build
     npm run dev
     ```
 
 4. **Run the Client**: Make sure you are inside the `./client` directory.
     Without using Discord SDK
     ```bash
+    npm install
     npm run dev
     ```
     Additional details can be found in the [client/README.md](/client/README.md).

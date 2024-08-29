@@ -81,7 +81,7 @@ class DiscordService {
     }
 
     async authenticate(code: string) {
-        const response = await fetch('/api/token', {
+        const response = await fetch('/.proxy/api/token', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -46,7 +46,9 @@ export function useAuthContext() {
 }
 
 function useAuthContextSetup() {
-    const [auth, setAuth] = useState<DiscordAuthResponse | null>(null);
+    const [auth, setAuth] = useState<TAuthenticatedContext | null>(() => {
+        return null
+    });
     const settingUp = useRef(false);
 
     useEffect(() => {

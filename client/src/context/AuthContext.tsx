@@ -47,6 +47,11 @@ export function useAuthContext() {
 
 function useAuthContextSetup() {
     const [auth, setAuth] = useState<TAuthenticatedContext | null>(() => {
+        // Check if auth context exists in local storage
+        // const storedAuth = localStorage.getItem("discord-activity-auth");
+        // storedAuth ? console.log("AuthCtx: using local storage", storedAuth) : console.log("AuthCtx: using auth")
+        
+        // return storedAuth ? JSON.parse(storedAuth) : null;
         return null
     });
     const settingUp = useRef(false);
@@ -59,6 +64,8 @@ function useAuthContextSetup() {
             const newAuth = await discord.authenticate(code);
 
             const member = await discord.getMember(newAuth.access_token);
+
+            localStorage.setItem("discord-activity-auth", JSON.stringify(newAuth));
 
             setAuth({ ...newAuth, member: member });
         };
